@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
+import Login from './pages/Login'
 import './index.css'
 import {
   createBrowserRouter,
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <div>Hello world!</div>,
   },
+  {
+    path: "/login",
+    element: <Login />,
+  }
 ]);
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
