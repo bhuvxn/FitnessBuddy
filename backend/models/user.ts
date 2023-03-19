@@ -8,8 +8,6 @@ interface user {
 const userSchema = new Schema<user>({
     username: {type:String, required: true, unique: true}, 
     passwordHash: {type:String, required: true},
-    //array of user meals
-
 });
 
 //deleting returned passwordHash

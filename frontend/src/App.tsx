@@ -29,6 +29,7 @@ const App= () => {
             <p>{result.food.nutrients.CHOCDF} carbs</p>
             <p>{result.food.nutrients.PROCNT} protein</p>
             <p>{result.food.nutrients.FAT} fat </p>
+            <button>Add to Log</button>
             </li>
         )
       })
