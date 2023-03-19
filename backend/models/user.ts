@@ -1,5 +1,4 @@
-import {Schema, model, connect} from mongoose 
-
+import { Schema, model} from 'mongoose';
 //creating interface for user (typescript specific)
 interface user {
     username: string;
@@ -13,28 +12,12 @@ const userSchema = new Schema<user>({
     email: {type:String, required: true, unique:true},
     passwordHash: {type:String, required: true},
     //array of user meals
-    meals: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Meal'
-        }
-    ],
-    biometric: 
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Biometric'
-        },
-    dailyCalories:
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'DailyCalories'
-        },
 
 });
 
 //deleting returned passwordHash
 userSchema.set('toJSON', {
-    transform: (document: any, returnedObject: any) => {
+    transform: (_document: any, returnedObject: any) => {
         delete returnedObject.passwordHash
     }
 })
