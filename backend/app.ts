@@ -6,7 +6,7 @@ const app = express();
 const usersRouter = require('./controllers/users')
 app.use(cors());
 app.use(express.json());
-app.use('/api/login', usersRouter)
+app.use('/api/users', usersRouter)
 //connect to database
 const url = config.MONGODB_URI;
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true})

@@ -8,21 +8,24 @@ usersRouter.get('/', async (_request: any, response: { json: (arg0: any) => void
 }
 );
 
-usersRouter.post('/', async (request: { body: { username: string; name: string; password: string; }; }, response: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: any): void; new(): any; }; }; }) => {
-    const { username, name, password } = request.body
-  
+usersRouter.post('/', async (request: { body: { username: string; password: string; }; }, response: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: any): void; new(): any; }; }; }) => {
+    try {const { username,  password } = request.body
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(password, saltRounds)
   
     const user = new User({
       username,
-      name,
       passwordHash,
     })
   
     const savedUser = await user.save()
   
     response.status(201).json(savedUser)
+} catch (exception) {
+    console.log(exception)
+    response.status(500).json({error: 'something went wrong...'})
+}
+
   })
 
 

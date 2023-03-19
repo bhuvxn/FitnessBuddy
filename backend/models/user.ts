@@ -2,14 +2,11 @@ import { Schema, model} from 'mongoose';
 //creating interface for user (typescript specific)
 interface user {
     username: string;
-    name: string; 
-    email: string; 
     passwordHash: string;
 }
 
 const userSchema = new Schema<user>({
     username: {type:String, required: true, unique: true}, 
-    email: {type:String, required: true, unique:true},
     passwordHash: {type:String, required: true},
     //array of user meals
 
