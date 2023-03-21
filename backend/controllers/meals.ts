@@ -7,6 +7,33 @@ mealsRouter.get('/', async (_request: any, response: { json: (arg0: any) => void
 }
 
 );
+mealsRouter.post('/user_meals', async (request: { body: any; }, response: { json: (arg0: any) => void; }) => {
+    const body = request.body
+    type user_id= string | Record<string, unknown> | null;
+    //determining if user id is vali
+    try{
+        const user:user_id = await User.findById(body.userId)
+        if(!user){
+            return response.json({error: 'invalid user id'})
+        }
+    } catch (error){
+        return response.json({error: 'invalid user id'})
+    }
+    //find meals by user id
+    Meal.find({user: body.userId}, function(err: any, meals: any){
+        if(err){
+            return response.json({error: err})
+        }
+        return response.json(meals)
+    }
+
+    )
+
+
+});
+
+
+
 
 mealsRouter.post('/', async (request: { body: any; }, response: { json: (arg0: any) => void; }) => {
     const body = request.body
