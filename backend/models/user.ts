@@ -1,5 +1,7 @@
 import { Schema, model} from 'mongoose';
-//creating interface for user (typescript specific)
+
+//creating interface for user (typescript specific
+
 interface user {
     username: string;
     passwordHash: string;
@@ -8,8 +10,8 @@ interface user {
 const userSchema = new Schema<user>({
     username: {type:String, required: true, unique: true}, 
     passwordHash: {type:String, required: true},
-});
 
+});
 //deleting returned passwordHash
 userSchema.set('toJSON', {
     transform: (_document: any, returnedObject: any) => {
@@ -19,4 +21,5 @@ userSchema.set('toJSON', {
 
 
 const User = model('User', userSchema);
-module.exports = User;
+export default User;
+module.exports = User, userSchema;
