@@ -1,6 +1,8 @@
 const mealsRouter = require('express').Router()
 const Meal = require('../models/meals')
 import User from "../models/user"
+
+
 mealsRouter.get('/', async (_request: any, response: { json: (arg0: any) => void; }) => {
     const meals = await Meal.find({})
     response.json(meals.map((meal: { toJSON: () => any; }) => meal.toJSON()))
@@ -9,13 +11,9 @@ mealsRouter.get('/', async (_request: any, response: { json: (arg0: any) => void
 );
 mealsRouter.post('/user_meals', async (request: { body: any; }, response: { json: (arg0: any) => void; }) => {
     const body = request.body
-    type user_id= string | Record<string, unknown> | null;
-    //determining if user id is vali
     try{
-        const user:user_id = await User.findById(body.userId)
-        if(!user){
-            return response.json({error: 'invalid user id'})
-        }
+     await User.findById(body.userId)
+        
     } catch (error){
         return response.json({error: 'invalid user id'})
     }
