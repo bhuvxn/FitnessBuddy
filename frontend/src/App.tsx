@@ -9,7 +9,6 @@ import Log from './components/Log'
 const App= () => {
   const [SSearch, SetSearch] = useState<string>('')
   const [Results, SetResults] = useState<any[]>([])
-
   
 
   //render results in rows and columns, featuring the food name, calories, macros
