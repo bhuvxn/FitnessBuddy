@@ -14,7 +14,7 @@ const App= () => {
   //render results in rows and columns, featuring the food name, calories, macros
 
   return (
-    <div >
+    <div>
       <Header />
       <Log/>
     </div>
