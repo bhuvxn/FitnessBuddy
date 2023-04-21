@@ -8,6 +8,9 @@ mealsRouter.get('/', async (_request: any, response: { json: (arg0: any) => void
     response.json(meals.map((meal: { toJSON: () => any; }) => meal.toJSON()))
 }
 
+//get user meals by user id
+
+
 );
 mealsRouter.post('/user_meals', async (request: { body: any; }, response: { json: (arg0: any) => void; }) => {
     const body = request.body
