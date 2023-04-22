@@ -7,7 +7,7 @@ import Header from './components/Header'
 import Sidebar from './components/Sidebar'
 import Log from './components/Log'
 const App= () => {
-  const [SSearch, SetSearch] = useState<string>('')
+  const [Search, SetSearch] = useState<string>('')
   const [Results, SetResults] = useState<any[]>([])
   
 
