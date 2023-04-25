@@ -11,6 +11,9 @@ const Data = () => {
         <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded flex items-center">
           + Biometric
         </button>
+        <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded flex items-center">
+          + Exercise
+        </button>
       </div>
       <p>Your fitness log content goes here.</p>
     </div>
