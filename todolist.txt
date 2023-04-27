@@ -1,4 +1,1 @@
 to do list for this application
-
-- figure how references in mongoose work with typescript
-- test backend in particular figure out how to get meals by day + user

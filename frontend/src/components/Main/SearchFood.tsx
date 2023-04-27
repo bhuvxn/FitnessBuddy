@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState} from 'react'
 import axios from 'axios'
-const Search = () => {
+const SearchFood = () => {
 
 
     const [Search, SetSearch] = useState<string>('')
@@ -19,7 +19,6 @@ const Search = () => {
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
-        SetResults([]);
         SetSearch(e.currentTarget.value)
         getData()
     }
@@ -44,4 +43,4 @@ const Search = () => {
   )
 }
 
-export default Search
+export default SearchFood

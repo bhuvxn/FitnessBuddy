@@ -1,11 +1,9 @@
 import React from "react";
 import Sidebar from "./Sidebar";
-import { useState } from "react";
-import axios from "axios";
 import CircleChart from "./Main/CircleChart";
 import "react-circular-progressbar/dist/styles.css";
-const Log = () => {
-
+import AddFood from "./Main/AddFood";
+const Dashboard = () => {
   return (
     <div>
       <Sidebar />
@@ -21,6 +19,7 @@ const Log = () => {
                 <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded flex items-center">
                   + Food
                 </button>
+                <AddFood/>
                 <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded flex items-center">
                   + Biometric
                 </button>
@@ -33,17 +32,16 @@ const Log = () => {
                   Energy Consumption
                 </h2>
                 <div className="flex flex-row space-x-9 justify-center">
-                  <CircleChart value = {1} />
-                  <CircleChart value = {1} />
-
+                  <CircleChart value={1} />
+                  <CircleChart value={1} />
                 </div>
               </div>
               <div className="w-1/2 bg-white rounded-xl shadow-xl hover:shadow-2xl p-8 mt-10">
                 <h2 className="text-lg font-semibold mb-4">Macros</h2>
                 <div className="flex flex-row space-x-9 justify-center">
-                <CircleChart value = {1} />
-                <CircleChart value = {1} />
-                <CircleChart value = {1} />
+                  <CircleChart value={1} />
+                  <CircleChart value={1} />
+                  <CircleChart value={1} />
                 </div>
               </div>
             </div>
@@ -54,4 +52,4 @@ const Log = () => {
   );
 };
 
-export default Log;
+export default Dashboard;

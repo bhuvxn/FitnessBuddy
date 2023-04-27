@@ -48,11 +48,12 @@ mealsRouter.post('/', async (request: { body: any; }, response: { json: (arg0: a
     } catch (error){
         return response.json({error: 'invalid user id'})
     }
-
+    //stripping time from date
+    const date = Date.now().toString().substring(0, 10)
     const meal = new Meal({
         food: body.food,
         calories: body.calories,
-        date: Date.now().toString(),
+        date: date, 
         protein: body.protein,
         carbs: body.carbs,
         fat: body.fat,
