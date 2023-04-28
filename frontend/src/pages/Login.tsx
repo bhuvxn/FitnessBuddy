@@ -1,41 +1,46 @@
 import axios from "axios";
+import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import loginService from "../services/loginService";
+
+interface Credentials {
+  username: string;
+  password: string;
+}
 const Login = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-  const handleUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value);
-  };
+  const navigate = useNavigate();
 
-  const HandleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-    const navigate = useNavigate();
-
+  const handlePassword = (event: string) => {
+    console.log(event);
+    setPassword(event);
+  };
+  const handleUsername = (event: string) => {
+    console.log(event);
+    setUsername(event);
+  };
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const credentials: Credentials = {
+      username: username,
+      password: password,
+    };
     try {
-      const user = await loginService.login({
-        username,
-        password,
-      });
-      window.localStorage.setItem("loggedUser", JSON.stringify(user));
-      axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
-      setUsername("");
-      setPassword("");
-      navigate('/');      
-    } catch (exception) {
-      setError("Wrong credentials");
-      setTimeout(() => {
-        setError("");
-      }, 5000);
+      const response = await loginService.login(credentials);
+      console.log(response);
+      if (response.status === 200) {
+        localStorage.setItem("token", response.data.token);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      console.log(error);
+      setError("Invalid username or password");
     }
   };
-
   return (
     <div>
       <Header />
@@ -44,7 +49,7 @@ const Login = () => {
           <h2 className="text-3xl font-bold mb-8">
             Welcome back to fitness buddy!
           </h2>
-          <form className="flex flex-col items-center space-y-6 w-3/4">
+          <form className="flex flex-col items-center space-y-6 w-3/4" onSubmit = {handleSubmit}>
             <div className="w-full">
               <label
                 htmlFor="username"
@@ -53,12 +58,12 @@ const Login = () => {
                 Username
               </label>
               <input
-                id="email"
-                type="email"
-                value = {username}
+                id="username"
+                type="username"
+                value={username}
                 className="w-full border border-gray-400 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                 required
-                onChange={handleUsername}
+                onChange={(event) => handleUsername(event.target.value)}
               />
             </div>
             <div className="w-full">
@@ -71,9 +76,9 @@ const Login = () => {
               <input
                 id="password"
                 type="password"
-                value = {password}
+                value={password}
                 className="w-full border border-gray-400 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                onChange={handlePassword}
+                onChange={(event) => handlePassword(event.target.value)}
                 required
               />
             </div>
@@ -86,18 +91,12 @@ const Login = () => {
               </button>
             </div>
             <div className="w-full">
-              <button
-                type="submit"
-                className="w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-              >
+              <button className="w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                 Sign Up
               </button>
             </div>
             <div className="w-full">
-              <button
-                type="submit"
-                className="w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-              >
+              <button className="w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                 Continue In Demo Mode (test application){" "}
               </button>
             </div>

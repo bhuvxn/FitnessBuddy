@@ -1,12 +1,33 @@
 import React from "react";
-import {useState} from 'react'
+import axios from "axios";
+import { useState } from "react";
 import LogButton from "./LogButton";
 const AddFood = () => {
   const [showModal, setShowModal] = React.useState(false);
-  const [Search, SetSearch] = useState<string>('')
-  const [Results, SetResults] = useState<any[]>([])
+  const [Search, SetSearch] = useState<string>("");
+  const [Results, SetResults] = useState<any[]>([]);
+  const url = `https://api.edamam.com/api/food-database/parser?app_id=9f259904&app_key=01b4010ecafba36b19688cf87bf0de84&ingr=${Search}`;
 
+  const getData = () => {
+    axios.get(url).then((response) => {
+      console.log(response.data.hints);
+      SetResults(response.data.hints);
+    });
+  };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    SetSearch("")
+    SetResults([]);
+    SetSearch(e.currentTarget.value);
+    getData();
+  };
+  const handleClose = ()=>{
+    setShowModal(false)
+    SetSearch("")
+    SetResults([])
+  }
+  
+  
   return (
     <>
       <LogButton text="clickme!" onClick={() => setShowModal(true)} />
@@ -25,6 +46,8 @@ const AddFood = () => {
                       type="search"
                       name="search"
                       placeholder="Search"
+                      value={Search}
+                      onChange={handleChange}
                     />
                   </div>
                   <button
@@ -37,14 +60,22 @@ const AddFood = () => {
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative p-6 flex-auto">
-                  <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                    I always felt like I could do anything. That’s the main
-                    thing people are controlled by! Thoughts- their perception
-                    of themselves! They're slowed down by their perception of
-                    themselves. If you're taught you can’t do anything, you
-                    won’t do anything. I was taught I could do everything.
-                  </p>
+                <div className="">
+                  {Results.map((result) => {
+                    return (
+                        <div key={result.food.foodId} className="flex flex-col my-2">
+                        <h2>{result.food.label}</h2>
+                        <div className="flex">
+                          <p className="mr-1">{result.food.nutrients.ENERC_KCAL} calories</p>
+                          <p className="mr-1">{result.food.nutrients.CHOCDF} carbs</p>
+                          <p className="mr-1">{result.food.nutrients.PROCNT} protein</p>
+                          <p>{result.food.nutrients.FAT} fat</p>
+                          <button className = "mr-3">Add to Log</button>
+
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
@@ -58,7 +89,7 @@ const AddFood = () => {
                   <button
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => handleClose()}
                   >
                     Save Changes
                   </button>
