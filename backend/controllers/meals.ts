@@ -12,27 +12,12 @@ mealsRouter.get('/', async (_request: any, response: { json: (arg0: any) => void
 
 
 );
-mealsRouter.post('/user_meals', async (request: { body: any; }, response: { json: (arg0: any) => void; }) => {
-    const body = request.body
-    try{
-     await User.findById(body.userId)
-        
-    } catch (error){
-        return response.json({error: 'invalid user id'})
-    }
-    //find meals by user id
-    Meal.find({user: body.userId}, function(err: any, meals: any){
-        if(err){
-            return response.json({error: err})
-        }
-        return response.json(meals)
-    }
-
-    )
-
-
-});
-
+//get user meals by user id
+mealsRouter.get('/user', async (request: { body: { userId: any }; }, response: { json: (arg0: any) => void; }) => {
+    const meals = await Meal.find({ user: request.body.userId });
+    response.json(meals.map((meal: { toJSON: () => any; }) => meal.toJSON()));
+  });
+  
 
 
 

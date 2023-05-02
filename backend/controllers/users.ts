@@ -36,5 +36,6 @@ usersRouter.post('/', async (request: { body: { username: string; password: stri
 }
 
   })
+  export {}
 
 module.exports = usersRouter
