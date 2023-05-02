@@ -8,4 +8,12 @@ const login = async (credentials: Credentials) => {
   return response.data;
 };
 
-export default { login };
+
+const signup = async (credentials: Credentials) => {
+  const response = await axios.post( `${apiBaseUrl}/users`, credentials);
+  console.log(response);
+  return response.data;
+}
+
+
+export default { login, signup };

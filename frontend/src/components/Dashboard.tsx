@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "./Sidebar";
 import CircleChart from "./Main/CircleChart";
 import "react-circular-progressbar/dist/styles.css";
 import AddFood from "./Main/AddFood";
+import Modal from "./Main/Modal";
+import LogButton from "./Main/LogButton";
 const Dashboard = () => {
+  const string = "add food";
+
+  const [date, setDate] = React.useState(new Date().toString().substring(0, 15)); //date
+
+  const [clientId, setClientId] = React.useState(0); //client id
+
+
   return (
     <div>
       <Sidebar />
@@ -16,13 +25,14 @@ const Dashboard = () => {
             >
               <h2 className="text-lg font-semibold mb-4">Fitness Log</h2>
               <div className="flex space-x-2">
+                <LogButton text="<" />
+                  <h3>{date}</h3>
+                <LogButton text=">" />
                 <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded flex items-center">
-                  + Food
+                  + Custom Food
                 </button>
-                <AddFood/>
-                <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded flex items-center">
-                  + Biometric
-                </button>
+                <AddFood />
+                <Modal string = {string} />
               </div>
               <p>Your fitness log content goes here.</p>
             </div>

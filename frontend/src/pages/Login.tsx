@@ -31,16 +31,19 @@ const Login = () => {
     };
     try {
       const response = await loginService.login(credentials);
-      console.log(response);
+      console.log(response.data);
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
-        navigate("/dashboard");
       }
+      navigate("/dashboard");
     } catch (error) {
       console.log(error);
       setError("Invalid username or password");
     }
   };
+  
+
+
   return (
     <div>
       <Header />
