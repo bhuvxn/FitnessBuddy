@@ -31,9 +31,10 @@ const Login = () => {
     };
     try {
       const response = await loginService.login(credentials);
-      console.log(response.data);
+      console.log(response);
       if (response.status === 200) {
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("token", response.data.token.toString());
+        localStorage.setItem("userId", response.data.id.toString());
       }
       navigate("/dashboard");
     } catch (error) {
@@ -41,8 +42,6 @@ const Login = () => {
       setError("Invalid username or password");
     }
   };
-  
-
 
   return (
     <div>
@@ -52,7 +51,10 @@ const Login = () => {
           <h2 className="text-3xl font-bold mb-8">
             Welcome back to fitness buddy!
           </h2>
-          <form className="flex flex-col items-center space-y-6 w-3/4" onSubmit = {handleSubmit}>
+          <form
+            className="flex flex-col items-center space-y-6 w-3/4"
+            onSubmit={handleSubmit}
+          >
             <div className="w-full">
               <label
                 htmlFor="username"

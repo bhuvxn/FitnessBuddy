@@ -5,6 +5,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const HandleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
     navigate("/");
   };
 

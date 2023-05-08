@@ -16,21 +16,20 @@ const AddFood = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    SetSearch("")
+    SetSearch("");
     SetResults([]);
     SetSearch(e.currentTarget.value);
     getData();
   };
-  const handleClose = ()=>{
-    setShowModal(false)
-    SetSearch("")
-    SetResults([])
-  }
-  
-  
+  const handleClose = () => {
+    setShowModal(false);
+    SetSearch("");
+    SetResults([]);
+  };
+
   return (
     <>
-      <LogButton text="clickme!" onClick={() => setShowModal(true)} />
+      <LogButton text="+ Search/Add Food" onClick={() => setShowModal(true)} />
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -60,38 +59,46 @@ const AddFood = () => {
                   </button>
                 </div>
                 {/*body*/}
-                <div className="">
-                  {Results.map((result) => {
-                    return (
-                        <div key={result.food.foodId} className="flex flex-col my-2">
-                        <h2>{result.food.label}</h2>
-                        <div className="flex">
-                          <p className="mr-1">{result.food.nutrients.ENERC_KCAL} calories</p>
-                          <p className="mr-1">{result.food.nutrients.CHOCDF} carbs</p>
-                          <p className="mr-1">{result.food.nutrients.PROCNT} protein</p>
-                          <p>{result.food.nutrients.FAT} fat</p>
-                          <button className = "mr-3">Add to Log</button>
-
-                        </div>
-                      </div>
-                    );
-                  })}
+                <div>
+                    <div className="flex flex-wrap -mx-4">
+                    <div className="w-3/4 mt-5 mx-auto border rounded-md max-h-96 overflow-y-auto">
+                      {Results.map((result) => {
+                        return (
+                          <div
+                            key={result.food.foodId}
+                            className="p-3 border-b"
+                          >
+                            <h2 className="font-bold">{result.food.label}</h2>
+                            <p className="my-2">
+                              {result.food.nutrients.ENERC_KCAL} calories
+                            </p>
+                            <p className="my-2">
+                              {result.food.nutrients.CHOCDF} carbs
+                            </p>
+                            <p className="my-2">
+                              {result.food.nutrients.PROCNT} protein
+                            </p>
+                            <p className="my-2">
+                              {result.food.nutrients.FAT} fat
+                              <button className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+                                Add to Log
+                              </button>
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
+
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                  <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Close
-                  </button>
                   <button
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => handleClose()}
                   >
-                    Save Changes
+                    Close
                   </button>
                 </div>
               </div>

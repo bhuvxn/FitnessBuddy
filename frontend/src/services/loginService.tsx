@@ -5,7 +5,7 @@ import { apiBaseUrl } from "../constants";
 const login = async (credentials: Credentials) => {
   const response = await axios.post( `${apiBaseUrl}/login`, credentials);
   console.log(response);
-  return response.data;
+  return response
 };
 
 
